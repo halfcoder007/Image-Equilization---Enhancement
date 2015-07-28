@@ -1,0 +1,24 @@
+%Create a video from still image
+I=imread('fan.png');
+m=size(I,1);
+n=size(I,2);
+j=1;
+%Preallocate the structure array
+%The fields are 'cdata' and 'colormap'
+%The size should be 1xm
+frame=struct('cdata',1,'colormap',cell([1 36]));
+
+for i=1:10:360
+    %Rotate the image
+    Im=imrotate(I,i);
+    %To convert an image to frame use the function 'im2frame'.
+    frame(j)=im2frame(imresize(Im,[m n]));
+j=j+1;
+end
+
+%scz=figure;
+%set(scz, 'position', [300 100  size(I,1)+200 size(I,2)]);
+%movie(scz ,frame,1,30);
+
+%Play the image sequence with fps=10.
+implay(frame,10);
